@@ -1,0 +1,50 @@
+import string
+document1 = "The quick brown fox jumped over the lazy dog."
+document2 = "The lazy dog slept in the sun."
+
+
+def remove_p(doc):
+  doc = doc.translate(str.maketrans("", "", string.punctuation))
+  return doc
+
+document1 = remove_p(document1)
+document2 = remove_p(document2)
+
+tokens1 = document1.lower().split()
+tokens2 = document2.lower().split()
+
+terms = list(set(tokens1 + tokens2))
+
+inverted_index = {}
+
+for term in terms:
+	documents = []
+	if term in tokens1:
+		documents.append(["Document 1", f"Index loc: {tokens1.index(term)}"])
+	if term in tokens2:
+		documents.append(["Document 2", f"Index loc: {tokens2.index(term)}"])
+	inverted_index[term] = documents
+
+
+key = input('Enter key to be searched: ').lower()
+
+
+
+if key in inverted_index:
+	print(key, "->", inverted_index[key])
+else:
+  print("Not present.")
+
+
+
+
+print(terms)
+
+
+
+
+print(inverted_index)
+
+
+
+

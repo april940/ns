@@ -1,0 +1,79 @@
+import nltk
+nltk.download('stopwords')
+
+from nltk.corpus import stopwords
+stopwords_english = stopwords.words('english')
+
+from nltk.tokenize import sent_tokenize, word_tokenize
+nltk.download('punkt')
+
+from nltk.stem import 	WordNetLemmatizer
+nltk.download("wordnet")
+
+from nltk.stem import PorterStemmer
+
+
+
+sample_str = "Write a program for pre processing a text document such as stop word removal, stemming, lemmatization, tokenize."
+
+
+
+def tokenize(doc: str):
+  tokenized_sample = word_tokenize(doc)
+  return tokenized_sample
+
+
+
+import string
+def remove_stopwords(doc: list):
+  doc_clean = []
+
+  for word in doc:
+      if (word not in stopwords_english and  word not in string.punctuation):
+          doc_clean.append(word)
+  return doc_clean
+
+
+
+# e_words= ["wait", "waiting", "waited", "waits"]
+def stem(doc: list):
+  ps = PorterStemmer()
+
+  stem_doc = []
+  for w in doc:
+      rootWord = ps.stem(w)
+      stem_doc.append(rootWord)
+  return stem_doc
+
+
+
+# text = "studies studying cries cry"
+def lemmetize(doc: list):
+  wordnet_lemmatizer = WordNetLemmatizer()
+  lemma_doc = []
+  for w in doc:
+    root = wordnet_lemmatizer.lemmatize(w, pos='v')
+    lemma_doc.append(root)
+  return lemma_doc
+
+
+
+t = tokenize(sample_str)
+print(t)
+
+
+
+r = remove_stopwords(t)
+print(r)
+
+
+
+s = stem(r)
+print(s)
+
+
+
+import nltk
+nltk.download('omw-1.4')
+l = lemmetize(r)
+print(l)
